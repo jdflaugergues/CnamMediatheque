@@ -30,6 +30,22 @@ INSERT INTO `Abonne` (`abo_nom`,`abo_prenom`,`abo_cat_categorieId`) VALUES
 ('Nicolas','Sitbon',2);
 
 --
+-- Structure de la table `Adulte`
+--
+CREATE TABLE Adulte (abo_abonneId INT,
+         PRIMARY KEY (abo_abonneId),
+         FOREIGN KEY (abo_abonneId) REFERENCES Abonne(abo_abonneId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Structure de la table `Enfant`
+--
+CREATE TABLE Enfant (abo_abonneId INT,
+         PRIMARY KEY (abo_abonneId),
+         FOREIGN KEY (abo_abonneId) REFERENCES Abonne(abo_abonneId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
 -- Structure de la table `Type`
 --
 CREATE TABLE `Type` (
@@ -43,7 +59,11 @@ INSERT INTO `Type` (`typ_nom`) VALUES
 ('periodique'),
 ('livre');
 
- CREATE TABLE Document (doc_documentId INT AUTO_INCREMENT,
+
+--
+-- Structure de la table `Document`
+--
+CREATE TABLE Document (doc_documentId INT AUTO_INCREMENT,
          doc_titre VARCHAR(100) COLLATE utf8_bin NOT NULL,
          doc_auteur VARCHAR(50) COLLATE utf8_bin NOT NULL,
          doc_dateParution VARCHAR(50) NOT NULL,
@@ -52,18 +72,27 @@ INSERT INTO `Type` (`typ_nom`) VALUES
          FOREIGN KEY (doc_typ_typeId) REFERENCES Type(typ_typeId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Structure de la table `DVD`
+--
 CREATE TABLE DVD (doc_documentId INT,
          dvd_genre VARCHAR(40) COLLATE utf8_bin NOT NULL,
          PRIMARY KEY (doc_documentId),
          FOREIGN KEY (doc_documentId) REFERENCES Document(doc_documentId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Structure de la table `Periodique`
+--
 CREATE TABLE Periodique (doc_documentId INT,
          per_numero INT NOT NULL,
          PRIMARY KEY (doc_documentId),
          FOREIGN KEY (doc_documentId) REFERENCES Document(doc_documentId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Structure de la table `Livre`
+--
 CREATE TABLE Livre (doc_documentId INT,
          liv_nbPages int NOT NULL,
          liv_editeur VARCHAR(40) COLLATE utf8_bin NOT NULL,
