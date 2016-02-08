@@ -30,10 +30,11 @@
               	</thead>
 				 <c:forEach items="${requestScope.documents}" var="document">
 					<tr>
-						<td><c:out value="${document.titre}" /></td>
+						<td><a href='<c:url value="/mediatheque"><c:param name="action" value="item"/><c:param name="id" value="${document.id}"/></c:url>'>
+							<c:out value="${document.titre}" />
+						</a></td>
 						<td><c:out value="${document.dateParution}" /></td>
 						<td><c:out value="${document.type.nom}" /></td>
-						<!-- td><c:out value="${document.getClass().getSimpleName()}" /></td-->
 						</td>
 					</tr>
 				</c:forEach>

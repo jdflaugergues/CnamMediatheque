@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import hibernate.Action;
 import hibernate.Config;
 import modeles.Document;
 
@@ -43,11 +44,16 @@ public class Mediatheque extends HttpServlet {
 		try{
 			switch(action){
 				case "list" : 
-					Session session = new Config().getSession();
-					Query query = session.createQuery("FROM Document");
-					List<Document> listeDocs = query.list();
+					List<Document> listeDocs = Action.getListDocument();
 					request.setAttribute("documents", listeDocs);
 					vue = VUE + "listDocument.jsp";
+					break;
+				
+				case "item" :
+					int id = Integer.parseInt(request.getParameter("id"));
+					Document doc = Action.getDocument(id);
+					request.setAttribute("document", doc);
+					vue = VUE + "document.jsp";
 					break;
 					
 				case "delay" : 
