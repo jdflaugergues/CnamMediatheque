@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Adulte")
 @PrimaryKeyJoinColumn(name="abo_abonneId")
-public class Adulte {
+public class Adulte extends Abonne{
 	
-	public Adulte(){}
+	//public Adulte(){}
 }

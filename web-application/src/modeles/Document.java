@@ -24,23 +24,19 @@ public class Document {
 	public void setTitre(String titre){this.titre = titre;}
 	public String getTitre(){return titre;}
 
-	@Column(name = "doc_auteur")
-	private String auteur;
-	public void setAuteur(String auteur){this.auteur = auteur;}
-	public String getAuteur(){return auteur;}
-
 	@Column(name = "doc_dateParution")
 	private String dateParution;
 	public void setDateParution(String dateParution){this.dateParution = dateParution;}
 	public String getDateParution(){return dateParution;}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "Type", cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="doc_typ_typeId")
 	private Type type;
 	public Type getType() {return this.type;}
 	public void setType(Type type) {this.type = type;}
 	
 	@OneToMany(mappedBy = "pk.document" , fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
-	private Set<Document> documents = new HashSet<Document>();
-	public Set<Document> getDocuments() {return this.documents;}
-	public void setDocuments(Set<Document> d) {this.documents = d;}
+	private Set<Reservation> reservations = new HashSet<Reservation>();
+	public Set<Reservation> getReservations() {return this.reservations;}
+	public void setReservations(Set<Reservation> reservations) {this.reservations = reservations;}
 }

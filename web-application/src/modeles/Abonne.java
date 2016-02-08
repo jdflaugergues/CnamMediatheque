@@ -31,7 +31,8 @@ public class Abonne {
 	public void setPrenom(String prenom){this.prenom = prenom;}
 	public String getPrenom(){return prenom;}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "Categorie", cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="abo_cat_categorieId")
 	private Categorie categorie;
 	public Categorie getCategorie() {return this.categorie;}
 	public void setCategorie(Categorie categorie) {this.categorie = categorie;}

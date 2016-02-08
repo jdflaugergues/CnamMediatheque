@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Livre")
 @PrimaryKeyJoinColumn(name="doc_documentId")
-public class Livre {
+public class Livre extends Document {
 	
 	public Livre(){}
 

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "DVD")
 @PrimaryKeyJoinColumn(name="doc_documentId")
-public class DVD {
+public class DVD extends Document{
 	
 	public DVD(){}
 
