@@ -60,3 +60,11 @@ margin-bottom: 40px;
 	margin-right: 30px;
 	margin-top: 4px;
 }
+
+.table-warning, .table-warning>td, .table-warning>th {
+    background-color: #fcf8e3;
+}
+
+.table-danger, .table-danger>td, .table-danger>th {
+    background-color: #f2dede;
+}

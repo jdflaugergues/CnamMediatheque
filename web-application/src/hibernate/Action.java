@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import modeles.Abonne;
 import modeles.Document;
+import modeles.Emprunt;
 import modeles.Reservation;
 
 /**
@@ -29,8 +30,39 @@ public class Action {
 	 */
 	public static List<Document> getListDocument(){
 		Session session = new Config().getSession();
-		Query query = session.createQuery("select doc from Document as doc left join fetch doc.reservations as reser");
+		Query query = session.createQuery("select distinct doc from Document as doc left join fetch doc.reservations as reser");
 		return query.list();
+	}
+
+	/**
+	 * Récupère la liste de toutes les réservations en cours des document de la médiathèque.
+	 * @return La liste des réservations
+	 */
+	public static List<Reservation> getDocumentBorrowed(){
+		Session session = new Config().getSession();
+		Query query = session.createQuery("select reservation from Reservation as reservation"
+										+ " left join fetch reservation.pk.document as document"
+										+ " left join fetch reservation.pk.abonne as abonne"
+										+ " where reservation.retour is null");
+		return query.list();
+	}
+	
+	/**
+	 * Récupère le type d'emprunt d'un document en fonction du type du document
+	 * et de la catégorie de l'emprenteur
+	 * @param type Type du document
+	 * @param categorie Catégorie de l'emprunteur.
+	 * @return Emprunt
+	 */
+	public static Emprunt getEmprunt(int type, int categorie){
+		Session session =  new Config().getSession();
+		Query query = session.createQuery("FROM Emprunt as emprunt "
+										+ " WHERE emprunt.pk.categorie.id= :categorieid"
+										+ " AND emprunt.pk.type.id= :typeid")
+				.setInteger("categorieid",categorie)
+				.setInteger("typeid",type);
+		
+		return (Emprunt)query.uniqueResult();
 	}
 	
 	/**

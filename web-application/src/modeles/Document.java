@@ -3,6 +3,9 @@ package modeles;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -54,5 +57,26 @@ public class Document {
 			}
 		}
 		return reserver;
+	}
+	
+	@Override
+	public int hashCode() {
+	    HashCodeBuilder hcb = new HashCodeBuilder();
+	    hcb.append(this.id);
+	    return hcb.toHashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (!(obj instanceof Document)) {
+	        return false;
+	    }
+	    Document autre = (Document) obj;
+	    EqualsBuilder eb = new EqualsBuilder();
+	    eb.append(id, autre.id);
+	    return eb.isEquals();
 	}
 }

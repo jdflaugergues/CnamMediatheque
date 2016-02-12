@@ -1,5 +1,9 @@
 package modeles;
 import javax.persistence.*;
+
+import hibernate.Action;
+
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -30,5 +34,22 @@ public class Reservation {
 	
 	public Date getDate() {return getPk().getDate();}
 	public void setDate(Date date) {if (pk == null){this.pk = new ReservationId();} getPk().setDate(date);}
+
+	/**
+	 * Récupère la date limite à laquelle l'abonné peut emprunter le document.
+	 * @return
+	 */
+	public Date getDeadline(){
+		
+		int type = this.getDocument().getType().getId();
+		int categorie = this.getAbonne().getCategorie().getId();
+		
+		Emprunt emprunt = Action.getEmprunt(type, categorie);
+		
+		Calendar c = Calendar.getInstance();    
+		c.setTime(this.getDate());
+		c.add(Calendar.DATE, emprunt.getDuree());
+		return c.getTime();
+	}
 	
 }

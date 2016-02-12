@@ -17,6 +17,7 @@ import hibernate.Action;
 import hibernate.Config;
 import modeles.Abonne;
 import modeles.Document;
+import modeles.Reservation;
 
 /**
  * Servlet implementation class Hibernate
@@ -45,18 +46,6 @@ public class Mediatheque extends HttpServlet {
 		try{
 			switch(action){
 				
-				case "test":
-					
-					int taid = Integer.parseInt(request.getParameter("abonneId"));
-					int tdid = Integer.parseInt(request.getParameter("documentId"));
-					Abonne ta = Action.getAbonne(taid);
-					Document td = Action.getDocument(tdid);
-					
-					ta.canReservedDocument(td);
-					
-					
-					break;
-			
 				// Afficher la liste des documents
 				case "list" : 
 					List<Document> listeDocs = Action.getListDocument();
@@ -129,9 +118,12 @@ public class Mediatheque extends HttpServlet {
 					
 					vue = VUE + tjsp + ".jsp";
 					break;
-					
-				case "delay" : 
-					vue = "delay.jsp";
+				
+				// Documents en cours de réservation
+				case "borrowed" : 
+					List<Reservation> reservations = Action.getDocumentBorrowed();
+					request.setAttribute("reservations", reservations);
+					vue = VUE + "borrowed.jsp";
 					break;
 			}
 			
