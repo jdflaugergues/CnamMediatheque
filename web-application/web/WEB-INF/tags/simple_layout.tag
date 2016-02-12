@@ -48,7 +48,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li id="mediatheque" <c:if test="${nav.equals('mediatheque')}">class="active"</c:if> ><a href='<c:url value="/vues/index.jsp"/>'>Médiathèque</a></li>
-            <li id="contact"   <c:if test="${nav.equals('contact')}">class="active"</c:if>><a href='<c:url value="/vues/contact.jsp"/>'>Contact</a></li>
+            <li id="contact"   <c:if test="${nav.equals('contact')}">class="active"</c:if>><a href='<c:url value="/vues/contact/contact.jsp"/>'>Contact</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->

@@ -20,17 +20,17 @@
 		<property name="cache.use_query_cache">false</property>
 		
 		<!-- mapping files -->
-		<mapping class="modeles.webscope.Abonne"/>
-		<mapping class="modeles.webscope.Adulte"/>
-		<mapping class="modeles.webscope.Categorie"/>
-		<mapping class="modeles.webscope.Document"/>
-		<mapping class="modeles.webscope.DVD"/>
-		<mapping class="modeles.webscope.Emprunt"/>
-		<mapping class="modeles.webscope.Enfant"/>
-		<mapping class="modeles.webscope.Livre"/>
-		<mapping class="modeles.webscope.Periodique"/>
-		<mapping class="modeles.webscope.Reservation"/>
-		<mapping class="modeles.webscope.Type"/>
+		<mapping class="modeles.Abonne"/>
+		<mapping class="modeles.Adulte"/>
+		<mapping class="modeles.Categorie"/>
+		<mapping class="modeles.Document"/>
+		<mapping class="modeles.DVD"/>
+		<mapping class="modeles.Emprunt"/>
+		<mapping class="modeles.Enfant"/>
+		<mapping class="modeles.Livre"/>
+		<mapping class="modeles.Periodique"/>
+		<mapping class="modeles.Reservation"/>
+		<mapping class="modeles.Type"/>
 		
 	</session-factory>
 </hibernate-configuration>

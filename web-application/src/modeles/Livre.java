@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Livre")
 @PrimaryKeyJoinColumn(name="doc_documentId")
-public class Livre {
+public class Livre extends Document {
 	
 	public Livre(){}
 
@@ -13,11 +13,6 @@ public class Livre {
 	private int nbPages;
 	public void setNbPages(int nbPages){this.nbPages = nbPages;}
 	public int getNbPages(){return nbPages;}
-
-	@Column(name = "liv_collection")
-	private String collection;
-	public void setCollection(String collection){this.collection = collection;}
-	public String getCollection(){return collection;}
 
 	@Column(name = "liv_editeur")
 	private String editeur;
@@ -28,4 +23,9 @@ public class Livre {
 	private String isbn;
 	public void setIsbn(String isbn){this.isbn = isbn;}
 	public String getIsbn(){return isbn;}
+	
+	@Column(name = "liv_auteur")
+	private String auteur;
+	public void setAuteur(String auteur){this.auteur = auteur;}
+	public String getAuteur(){return auteur;}
 }
