@@ -23,7 +23,7 @@ CREATE TABLE `Abonne` (
   FOREIGN KEY (abo_cat_categorieId) REFERENCES Categorie(cat_categorieId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `Abonne` (`abo_nom`,`abo_prenom`,`abo_cat_categorieId`) VALUES
+INSERT INTO `Abonne` (`abo_prenom`,`abo_nom`,`abo_cat_categorieId`) VALUES
 ('John','Doe',1),
 ('Dave','Montana',1),
 ('Pascal','Debard',2),
@@ -175,7 +175,7 @@ INSERT INTO `Periodique` (doc_documentId,per_numero) VALUES
 (28,36),
 (29,37),
 (30,38),
-(31,39),
+(31,39);
 
 --
 -- Structure de la table `Livre`
@@ -204,7 +204,8 @@ INSERT INTO `Livre` (doc_documentId,liv_nbPages,liv_editeur,liv_isbn,liv_auteur)
 CREATE TABLE `Reservation` (
   `res_doc_documentId` int(11) NOT NULL,
   `res_abo_abonneId` int(11) NOT NULL,
-  `res_date` varchar(30) COLLATE utf8_bin NOT NULL,
+  `res_date` date NOT NULL,
+  `res_retour` date DEFAULT NULL,
   PRIMARY KEY (`res_doc_documentId`,`res_abo_abonneId`),
   FOREIGN KEY (res_doc_documentId) REFERENCES Document(doc_documentId),
   FOREIGN KEY (res_abo_abonneId) REFERENCES Abonne(abo_abonneId)

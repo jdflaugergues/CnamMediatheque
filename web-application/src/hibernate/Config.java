@@ -14,7 +14,7 @@ import org.hibernate.service.ServiceRegistry;
 public class Config {
 
 	private Session session;
-
+	
 	/**
 	 * Constructeur établissant une connexion avec Hibernate
 	 */

@@ -15,6 +15,7 @@ import org.hibernate.Session;
 
 import hibernate.Action;
 import hibernate.Config;
+import modeles.Abonne;
 import modeles.Document;
 
 /**
@@ -43,17 +44,90 @@ public class Mediatheque extends HttpServlet {
 		
 		try{
 			switch(action){
+				
+				case "test":
+					
+					int taid = Integer.parseInt(request.getParameter("abonneId"));
+					int tdid = Integer.parseInt(request.getParameter("documentId"));
+					Abonne ta = Action.getAbonne(taid);
+					Document td = Action.getDocument(tdid);
+					
+					ta.canReservedDocument(td);
+					
+					
+					break;
+			
+				// Afficher la liste des documents
 				case "list" : 
 					List<Document> listeDocs = Action.getListDocument();
 					request.setAttribute("documents", listeDocs);
 					vue = VUE + "listDocument.jsp";
 					break;
 				
+				// Afficher les détails d'un document
 				case "item" :
-					int id = Integer.parseInt(request.getParameter("id"));
-					Document doc = Action.getDocument(id);
+					int itemId = Integer.parseInt(request.getParameter("id"));
+					Document doc = Action.getDocument(itemId);
 					request.setAttribute("document", doc);
+					request.setAttribute("reserver", doc.getReserver());
 					vue = VUE + "document.jsp";
+					break;
+				
+				// Emprunter un document
+				case "reserve" :
+					String jsp = request.getParameter("jsp");
+					int documentId = Integer.parseInt(request.getParameter("documentId"));
+					int abonneId = Integer.parseInt(request.getParameter("abonneId"));
+					
+					Document document = Action.getDocument(documentId);
+					Abonne abonne = Action.getAbonne(abonneId);
+					
+					// On vérifie que l'abonné peut réserver le document
+					boolean canReserved = abonne.canReservedDocument(document);
+					
+					if (canReserved){
+						Action.reserve(document,abonne);
+						request.setAttribute("reservedOK", true);
+						
+					}else{
+						request.setAttribute("reservedOK", false);
+					}
+					
+					request.setAttribute("document", document);
+					request.setAttribute("abonne", abonne);
+					request.setAttribute("reserver", abonne);
+					request.setAttribute("cantReserved", !canReserved);
+					
+					if (jsp.equals("listDocument")){
+						List<Document> ldocs = Action.getListDocument();
+						request.setAttribute("documents", ldocs);
+					}
+					
+					vue = VUE + jsp + ".jsp";
+					break;
+				
+				// Rendre un document
+				case "takeback" :
+					String tjsp = request.getParameter("jsp");
+					int tbdocumentId = Integer.parseInt(request.getParameter("documentId"));
+					int tbabonneId = Integer.parseInt(request.getParameter("abonneId"));
+					
+					Document tbdocument = Action.getDocument(tbdocumentId);
+					Abonne tbabonne = Action.getAbonne(tbabonneId);
+					
+					Action.takeback(tbdocument,tbabonne);
+					
+					request.setAttribute("document", tbdocument);
+					request.setAttribute("abonne", tbabonne);
+					request.setAttribute("reserver", null);
+					request.setAttribute("takebackOK", true);
+					
+					if (tjsp.equals("listDocument")){
+						List<Document> ldocs = Action.getListDocument();
+						request.setAttribute("documents", ldocs);
+					}
+					
+					vue = VUE + tjsp + ".jsp";
 					break;
 					
 				case "delay" : 

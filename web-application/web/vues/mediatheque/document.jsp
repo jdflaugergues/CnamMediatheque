@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:simple_layout title="Document">
@@ -21,6 +22,23 @@
               <h3 id="q1">[ <c:out value="${document.type.nom}" /> ] 
               	<span class="label label-default"><c:out value="${document.titre}" /></span>
               </h3>
+              
+              <c:if test="${reservedOK == true }">
+              	<div class = "alert alert-success">La réservation a bien été effectuée par ${abonne.prenom} ${abonne.nom}.</div>
+              </c:if>
+              
+              <c:if test="${takebackOK == true }">
+              	<div class = "alert alert-success">Le document a bien été rendu par ${abonne.prenom} ${abonne.nom}.</div>
+              </c:if>              
+              
+              <c:if test="${reserver != null and reservedOK != true and cantReserved != true}">
+              	<div class = "alert alert-warning">Ce document n'est pas disponible car il est en cours de réservation par ${reserver.prenom} ${reserver.nom}.</div>
+              </c:if>
+              
+              <c:if test="${cantReserved == true}">
+              	<div class = "alert alert-danger">La réservation est impossible car ${reserver.prenom} ${reserver.nom} à atteint sa limite de document réservé.</div>
+              </c:if>
+              
               
               <br>
               
@@ -98,10 +116,21 @@
 					
 				</form>
 				
-				<a class="btn btn-primary" href='<c:url value="/mediatheque"><c:param name="action" value="reserve"/><c:param name="id" value="1"/></c:url>' role="button">Réserver adulte (John Doe)</a>
-				<a class="btn btn-primary" href='<c:url value="/mediatheque"><c:param name="action" value="reserve"/><c:param name="id" value="2"/></c:url>' role="button">Réserver adulte (Dave Montana)</a>
-				<a class="btn btn-success" href='<c:url value="/mediatheque"><c:param name="action" value="reserve"/><c:param name="id" value="3"/></c:url>' role="button">Réserver enfant (Nicolas Sitbon)</a>
-				<a class="btn btn-success" href='<c:url value="/mediatheque"><c:param name="action" value="reserve"/><c:param name="id" value="4"/></c:url>' role="button">Réserver enfant (Pascal Debard)</a>
+				<c:if test="${reserver == null or cantReserved == true}">
+					<a class="btn btn-primary" href='<c:url value="/mediatheque"><c:param name="documentId" value="${document.id}"/><c:param name="jsp" value="document"/><c:param name="action" value="reserve"/><c:param name="abonneId" value="1"/></c:url>' role="button">Réserver adulte (John Doe)</a>
+					<a class="btn btn-primary" href='<c:url value="/mediatheque"><c:param name="documentId" value="${document.id}"/><c:param name="jsp" value="document"/><c:param name="action" value="reserve"/><c:param name="abonneId" value="2"/></c:url>' role="button">Réserver adulte (Dave Montana)</a>
+					<a class="btn btn-success" href='<c:url value="/mediatheque"><c:param name="documentId" value="${document.id}"/><c:param name="jsp" value="document"/><c:param name="action" value="reserve"/><c:param name="abonneId" value="3"/></c:url>' role="button">Réserver enfant (Pascal Debard)</a>
+					<a class="btn btn-success" href='<c:url value="/mediatheque"><c:param name="documentId" value="${document.id}"/><c:param name="jsp" value="document"/><c:param name="action" value="reserve"/><c:param name="abonneId" value="4"/></c:url>' role="button">Réserver enfant (Nicolas Sitbon)</a>
+				</c:if>
+				<c:if test="${reserver != null and cantReserved != true}">
+					<a class="btn btn-warning" href='<c:url value="/mediatheque">
+							<c:param name="action" value="takeback"/>
+							<c:param name="jsp" value="document"/>
+							<c:param name="documentId" value="${document.id}"/>
+							<c:param name="abonneId" value="${reserver.id}"/>
+						</c:url>' 
+						role="button">Rendre le document ( ${reserver.prenom} ${reserver.nom})</a>
+				</c:if>
 				
             </div> <!-- /container -->
           </div> <!-- /content -->

@@ -39,4 +39,20 @@ public class Document {
 	private Set<Reservation> reservations = new HashSet<Reservation>();
 	public Set<Reservation> getReservations() {return this.reservations;}
 	public void setReservations(Set<Reservation> reservations) {this.reservations = reservations;}
+	
+	/**
+	 * Récupère l'abonné qui a réservé le document.
+	 * @return l'abonné qui a réservé; null si aucun
+	 */
+	public Abonne getReserver(){
+		
+		Abonne reserver = null;
+		for (Reservation r : getReservations()){
+			
+			if (r.getRetour() == null){
+				reserver = r.getAbonne();
+			}
+		}
+		return reserver;
+	}
 }
