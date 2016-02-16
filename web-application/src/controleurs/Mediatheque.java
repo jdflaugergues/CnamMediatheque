@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import hibernate.Action;
-import hibernate.Config;
 import modeles.Abonne;
 import modeles.Document;
 import modeles.Reservation;

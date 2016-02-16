@@ -32,7 +32,7 @@ public class Document {
 	public void setDateParution(String dateParution){this.dateParution = dateParution;}
 	public String getDateParution(){return dateParution;}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="doc_typ_typeId")
 	private Type type;
 	public Type getType() {return this.type;}

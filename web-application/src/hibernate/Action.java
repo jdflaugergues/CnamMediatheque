@@ -30,7 +30,9 @@ public class Action {
 	 */
 	public static List<Document> getListDocument(){
 		Session session = new Config().getSession();
-		Query query = session.createQuery("select distinct doc from Document as doc left join fetch doc.reservations as reser");
+		Query query = session.createQuery("select distinct doc "
+				+ "from Document as doc "
+				+ "left join fetch doc.reservations as reser");
 		return query.list();
 	}
 
@@ -72,18 +74,17 @@ public class Action {
 	 */
 	public static Document getDocument(int id){
 		Session session =  new Config().getSession();
-		Query query = session.createQuery("FROM Document doc WHERE doc.id= :id")
-				.setInteger("id",id);
-		
-		return (Document)query.uniqueResult();
+		return (Document) session.load(Document.class, id);
 	}
 	
+	/**
+	 * Récupère un Abonné à partir de son id
+	 * @param id L'id de l'abonné
+	 * @return L'abonné récupéré
+	 */
 	public static Abonne getAbonne(int id){
 		Session session =  new Config().getSession();
-		Query query = session.createQuery("FROM Abonne ab WHERE ab.id= :id")
-				.setInteger("id",id);
-		
-		return (Abonne)query.uniqueResult();
+		return (Abonne) session.load(Abonne.class, id);
 	}
 	
 	/**
@@ -94,7 +95,10 @@ public class Action {
 	public static List<Document> getReservations(Abonne abo){
 		Session session =  new Config().getSession();
 		Query query = session.createQuery("FROM Document doc WHERE doc IN "
-				+ "(SELECT r.pk.document.id FROM Reservation r WHERE r.retour is null and r.pk.abonne= :abo)")
+				+ "(SELECT r.pk.document.id "
+				+ "FROM Reservation r "
+				+ "WHERE r.retour is null "
+				+ "AND r.pk.abonne= :abo)")
 				.setEntity("abo", abo);
 		
 		return query.list();
@@ -121,7 +125,7 @@ public class Action {
         } catch (RuntimeException e) {
         	if (tx != null)
         		tx.rollback();
-        	throw e; // Gérer le message (log, affichage, etc.)
+        	throw e; 
         }
 	}
 
@@ -153,7 +157,7 @@ public class Action {
         } catch (RuntimeException e) {
         	if (tx != null)
         		tx.rollback();
-        	throw e; // Gérer le message (log, affichage, etc.)
+        	throw e; 
         }
 	}
 	

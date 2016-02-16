@@ -25,7 +25,7 @@ public class Categorie {
 	public void setNom(String nom){this.nom = nom;}
 	public String getNom(){return nom;}
 	
-	@OneToMany(mappedBy = "pk.categorie" , fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy = "pk.categorie" , cascade=CascadeType.PERSIST)
 	private Set<Emprunt> emprunts = new HashSet<Emprunt>();
 	public Set<Emprunt> getEmprunts() {return this.emprunts;}
 	public void setEmprunts(Set<Emprunt> emprunts) {this.emprunts = emprunts;}

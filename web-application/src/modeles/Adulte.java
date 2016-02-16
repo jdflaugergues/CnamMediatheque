@@ -7,5 +7,5 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name="abo_abonneId")
 public class Adulte extends Abonne{
 	
-	//public Adulte(){}
+	public Adulte(){}
 }

@@ -40,7 +40,7 @@ public class Abonne {
 	public Categorie getCategorie() {return this.categorie;}
 	public void setCategorie(Categorie categorie) {this.categorie = categorie;}
 	
-	@OneToMany(mappedBy = "pk.abonne" , fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy = "pk.abonne", cascade=CascadeType.PERSIST)
 	@BatchSize(size=10)
 	private Set<Reservation> reservations = new HashSet<Reservation>();
 	public Set<Reservation> getReservations() {return this.reservations;}

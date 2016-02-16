@@ -38,7 +38,7 @@
                     <div class="caption">
                       <h3>2) Documents en retard</h3>
                       <p></p>
-                      <p><a href="<c:url value="/mediatheque"><c:param name="action" value="delay"/></c:url>" 
+                      <p><a href="<c:url value="/mediatheque"><c:param name="action" value="borrowed"/></c:url>" 
                       	    class="btn btn-primary centeredSection" role="button">Accéder</a>
                       </p>
                     </div>

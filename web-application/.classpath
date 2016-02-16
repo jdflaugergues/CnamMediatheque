@@ -9,6 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/AAA/Documents/CNAM/NSY135 - Applications orientées données - patrons, framework, ORM/15 - Projets/apache-commons-lang.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AAA/Documents/CNAM/NSY135 - Applications orientées données - patrons, framework, ORM/15 - Projets/CnamMediatheque/web-application/web/WEB-INF/lib/apache-commons-lang.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

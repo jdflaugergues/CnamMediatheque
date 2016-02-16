@@ -27,13 +27,13 @@ public class ReservationId implements java.io.Serializable {
 	 public Date getDate() {return this.date;}
 	 public void setDate(Date date) {this.date= date;}
  	
-     @ManyToOne
+     @ManyToOne (fetch=FetchType.LAZY)
      @JoinColumn(name = "res_abo_abonneId")
      private Abonne abonne;
      public Abonne getAbonne() {return abonne;}
      public void setAbonne(Abonne a) {this.abonne = a;}
 
-     @ManyToOne
+     @ManyToOne (fetch=FetchType.LAZY)
      @JoinColumn(name = "res_doc_documentId")
      private Document document;
      public Document getDocument() {return document;}
